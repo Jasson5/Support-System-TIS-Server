@@ -18,7 +18,10 @@ from django.urls import path, include
 
 
 urlpatterns = [
+    path('', include('public.urls')), #pagina principal
+    path('accounts/', include('login.urls')),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('home/', include('ProyectoTISApp.urls')),
     path('', include('login.urls')),
 

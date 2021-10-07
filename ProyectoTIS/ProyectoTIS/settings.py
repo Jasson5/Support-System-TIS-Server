@@ -37,13 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'ProyectoTISApp',
     'login',
+    'public',
+    'corsheaders',
+    'rest_framework.authtoken',
+
+    #'login.apps.LoginConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,13 +85,14 @@ WSGI_APPLICATION = 'ProyectoTIS.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'bdproyectotis',
+            'NAME': 'bdproyectotis2',
             'USER': 'postgres',
-            'PASSWORD': '',
+            'PASSWORD': 'AppTIS123',
             'HOST': '127.0.0.1',
             'DATABASE_PORT': '5432',
         }
     }
+
 
 
 # Password validation
@@ -124,3 +132,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+
+#LOGIN_REDIRECT_URL = '/'
+
+#----CONEXION CON FRONTEND EN LOCAL-----
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200', #----poner la ruta del frontend------
+    'http://127.0.0.1:4200',
+]
