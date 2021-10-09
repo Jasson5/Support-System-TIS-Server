@@ -24,7 +24,7 @@ class  GrupoEmpresaSerializer(serializers.ModelSerializer):
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = (   'rolId',
+        fields = (  'rolId',
                     'tipoRol')
 
 
