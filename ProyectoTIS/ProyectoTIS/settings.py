@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'ProyectoTIS.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'bdproyectotis2',
+            'NAME': 'bdproyectotis5',
             'USER': 'postgres',
             'PASSWORD': 'AppTIS123',
             'HOST': '127.0.0.1',
@@ -148,6 +148,9 @@ REST_FRAMEWORK = {
 #CORS_ALLOWED_ORIGINS_ALL = True
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200', #----poner la ruta del frontend------
-    'http://127.0.0.1:4200',
+    #'http://localhost:4200', #----poner la ruta del frontend------
+    #'http://127.0.0.1:4200',
+    'https://tis-black-box.netlify.app/',
+    'https://tis-black-box.netlify.app',
+
 ]
