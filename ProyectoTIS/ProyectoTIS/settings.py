@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import os
+import django_heroku
+
 
 from pathlib import Path
 
@@ -25,7 +28,7 @@ SECRET_KEY = 'r76112&iud&bae=&keq@pn4zbg_k!0tly^7*a+1f6jex+g6&b9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ProyectoTIS.herokuapp.com']
 
 
 # Application definition
@@ -85,9 +88,9 @@ WSGI_APPLICATION = 'ProyectoTIS.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'bdproyectotis5',
-            'USER': 'postgres',
-            'PASSWORD': 'AppTIS123',
+            'NAME': 'd23ta3ckpff83m',
+            'USER': 'skchdgvhmbnikb',
+            'PASSWORD': '95b40ec010005acd8d50d31c2b4f29a8173f21e2dfc8d8d2215a4dbaf025bd8c',
             'HOST': 'ec2-54-87-92-21.compute-1.amazonaws.com',
             'DATABASE_PORT': '5432',
         }
@@ -131,7 +134,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICURL = '/static/'
+django_heroku.settings(locals())
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
