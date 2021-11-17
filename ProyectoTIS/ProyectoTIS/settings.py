@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'ProyectoTIS.wsgi.application'
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'bdproyectotis2',
+            'NAME': 'bdproyectotis5',
             'USER': 'postgres',
             'PASSWORD': 'AppTIS123',
             'HOST': '127.0.0.1',

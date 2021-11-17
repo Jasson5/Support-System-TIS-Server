@@ -7,14 +7,14 @@ from login import views
 urlpatterns = [
     path('profile/', views.ProfileView.as_view()),
     path('api-auth/', views.CustomAuthToken.as_view()),
-    url(r'^usuario/$', views.UsuarioApi),
-    url(r'^usuario/([0-9]+)$', views.UsuarioApi),
+    url(r'^person/$', views.PersonApi),
+    url(r'^person/([0-9]+)$', views.PersonApi),
 
-    url(r'^grupoempresa/$', views.GrupoEmpresaApi),
-    url(r'^grupoempresa/([0-9]+)$', views.GrupoEmpresaApi),
+    url(r'^company/$', views.CompanyApi),
+    url(r'^company/([0-9]+)$', views.CompanyApi),
 
-    url(r'^rol/$', views.RolApi),
-    url(r'^rol/([0-9]+)$', views.RolApi),
+    url(r'^role/$', views.RoleApi),
+    url(r'^role/([0-9]+)$', views.RoleApi),
 
     #path('login', views.login, name="login"),
     #path('registro', views.register, name="registro"),

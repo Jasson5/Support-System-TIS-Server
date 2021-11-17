@@ -1,30 +1,33 @@
 from rest_framework import serializers
-from login.models import Usuario, GrupoEmpresa, Rol
+from login.models import Person, Company, Role
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class PersonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
-        fields = (  'usuarioId',
-                    'nombre',
-                    'apellidos',
-                    'correo',
-                    'contrasenia',
-                    'rol_usr',
-                    'grupo_usr')
+        model = Person
+        fields = (  'personId',
+                    'name',
+                    'surname1',
+                    'surname2',
+                    'personEmail',
+                    'password',
+                    'role_prn',
+                    'company_prn')
 
-class  GrupoEmpresaSerializer(serializers.ModelSerializer):
+class  CompanySerializer(serializers.ModelSerializer):
     class Meta:
-        model = GrupoEmpresa
-        fields = (  'grupoId',
-                    'nombre',
-                    'telefono',
-                    'direccion',
-                    'correoEmpresa')
+        model = Company
+        fields = (  'companyId',
+                    'shortName',
+                    'longName',
+                    'society',
+                    'address',
+                    'telephone',
+                    'companyEmail')
 
-class RolSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Rol
-        fields = (  'rolId',
-                    'tipoRol')
+        model = Role
+        fields = (  'roleId',
+                    'roleName')
 
 

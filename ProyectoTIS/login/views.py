@@ -12,8 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from login.models import Usuario, GrupoEmpresa, Rol
-from login.serializers import UsuarioSerializer, GrupoEmpresaSerializer, RolSerializer
+from login.models import Person, Company, Role
+from login.serializers import PersonSerializer, CompanySerializer, RoleSerializer
 
 '''def login(request):
     return render(request, 'login.html')
@@ -30,92 +30,92 @@ def register(request):
 # Create your views here.
 
 @csrf_exempt
-def UsuarioApi(request, id=0):
+def PersonApi(request, id=0):
     if request.method=='GET':
-        usuario = Usuario.objects.all()
-        usuario_serializer = UsuarioSerializer(usuario, many=True)
-        return  JsonResponse(usuario_serializer.data, safe=False)
+        person = Person.objects.all()
+        person_serializer = PersonSerializer(person, many=True)
+        return  JsonResponse(person_serializer.data, safe=False)
 
     elif request.method=='POST':
-        usuario_data = JSONParser().parse(request)
-        usuario_serializer = UsuarioSerializer(data=usuario_data)
-        if usuario_serializer.is_valid():
-            usuario_serializer.save()
+        person_data = JSONParser().parse(request)
+        person_serializer = PersonSerializer(data=person_data)
+        if person_serializer.is_valid():
+            person_serializer.save()
             return JsonResponse("Added Successfully!", safe=False)
         return JsonResponse("Failed to Add.", safe=False)
 
     elif request.method=='PUT':
-        usuario_data = JSONParser().parse(request)
-        usuario = Usuario.objects.get(usuarioId=usuario_data['usuarioId'] )
-        usuario_serializer = UsuarioSerializer(usuario, data=usuario_data)
-        if usuario_serializer.is_valid():
-            usuario_serializer.save()
+        person_data = JSONParser().parse(request)
+        person = Person.objects.get(personId=person_data['personId'] )
+        person_serializer = PersonSerializer(person, data=person_data)
+        if person_serializer.is_valid():
+            person_serializer.save()
             return JsonResponse("Updated Successfully!", safe=False)
         return JsonResponse("Failed to Update.", safe=False)
     
     elif request.method=='DELETE':
-        usuario = Usuario.objects.get(usuarioId=id)
-        usuario.delete()
+        person = Person.objects.get(personId=id)
+        person.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
 
 
 @csrf_exempt
-def GrupoEmpresaApi(request, id=0):
+def CompanyApi(request, id=0):
     if request.method=='GET':
-        grupoempresa = GrupoEmpresa.objects.all()
-        grupoempresa_serializer = GrupoEmpresaSerializer(grupoempresa, many=True)
-        return  JsonResponse(grupoempresa_serializer.data, safe=False)
+        company = Company.objects.all()
+        company_serializer = CompanySerializer(company, many=True)
+        return  JsonResponse(company_serializer.data, safe=False)
 
     elif request.method=='POST':
-        grupoempresa_data = JSONParser().parse(request)
-        grupoempresa_serializer = GrupoEmpresaSerializer(data=grupoempresa_data)
-        if grupoempresa_serializer.is_valid():
-            grupoempresa_serializer.save()
+        company_data = JSONParser().parse(request)
+        company_serializer = CompanySerializer(data=company_data)
+        if company_serializer.is_valid():
+            company_serializer.save()
             return JsonResponse("Added Successfully!", safe=False)
         return JsonResponse("Failed to Add.", safe=False)
 
     elif request.method=='PUT':
-        grupoempresa_data = JSONParser().parse(request)
-        grupoempresa = GrupoEmpresa.objects.get(grupoId=grupoempresa_data['grupoId'] )
-        grupoempresa_serializer = GrupoEmpresaSerializer(grupoempresa, data=grupoempresa_data)
-        if grupoempresa_serializer.is_valid():
-            grupoempresa_serializer.save()
+        company_data = JSONParser().parse(request)
+        company = Company.objects.get(companyId=company_data['companyId'] )
+        company_serializer = CompanySerializer(company, data=company_data)
+        if company_serializer.is_valid():
+            company_serializer.save()
             return JsonResponse("Updated Successfully!", safe=False)
         return JsonResponse("Failed to Update.", safe=False)
     
     elif request.method=='DELETE':
-        grupoempresa = GrupoEmpresa.objects.get(grupoId=id)
-        grupoempresa.delete()
+        company = Company.objects.get(companyId=id)
+        company.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
 
 
 @csrf_exempt
-def RolApi(request, id=0):
+def RoleApi(request, id=0):
     if request.method=='GET':
-        rol = Rol.objects.all()
-        rol_serializer = RolSerializer(rol, many=True)
-        return  JsonResponse(rol_serializer.data, safe=False)
+        role = Role.objects.all()
+        role_serializer = RoleSerializer(role, many=True)
+        return  JsonResponse(role_serializer.data, safe=False)
         
     elif request.method=='POST':
-        rol_data = JSONParser().parse(request)
-        rol_serializer = RolSerializer(data=rol_data)
-        if rol_serializer.is_valid():
-            rol_serializer.save()
+        role_data = JSONParser().parse(request)
+        role_serializer = RoleSerializer(data=role_data)
+        if role_serializer.is_valid():
+            role_serializer.save()
             return JsonResponse("Added Successfully!", safe=False)
         return JsonResponse("Failed to Add.", safe=False)
 
     elif request.method=='PUT':
-        rol_data = JSONParser().parse(request)
-        rol = Rol.objects.get(rolId=rol_data['rolId'] )
-        rol_serializer = RolSerializer(rol, data=rol_data)
-        if rol_serializer.is_valid():
-            rol_serializer.save()
+        role_data = JSONParser().parse(request)
+        role = Role.objects.get(roleId=role_data['roleId'] )
+        role_serializer = RoleSerializer(role, data=role_data)
+        if role_serializer.is_valid():
+            role_serializer.save()
             return JsonResponse("Updated Successfully!", safe=False)
         return JsonResponse("Failed to Update.", safe=False)
     
     elif request.method=='DELETE':
-        rol = Rol.objects.get(rolId=id)
-        rol.delete()
+        role = Role.objects.get(roleId=id)
+        role.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
 
 
