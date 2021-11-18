@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('home/', include('ProyectoTISApp.urls')),
-    url(r'^', include('login.urls')),
+    url(r'^login/', include('login.urls')),
     #path('', include('login.urls')),
 
 ]
