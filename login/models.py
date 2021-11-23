@@ -1,8 +1,19 @@
 from django.db import models
 from django.db.models.base import Model
+import random
+import string
+from django.db.models.deletion import CASCADE
 
+from django.urls.resolvers import CheckURLMixin
+from rest_framework.fields import CharField
 # Create your models here.
-
+def generarPassword(n):
+   s=""
+   caracteres= list(string.printable)
+   caracteres=caracteres[:-40]
+   for i in range(n):
+      s+=random.choice(caracteres)
+   return s
     
 class Company(models.Model):
     companyId=models.AutoField(primary_key=True)
@@ -28,6 +39,13 @@ class Role(models.Model):
        verbose_name='role'
        verbose_name_plural='roles'
 
+class Semester(models.Model):
+   semesterId= models.AutoField(primary_key=True)
+   semesterName= models.CharField(max_length=7)
+   semesterPassword=models.CharField(default=generarPassword(15), max_length=20)
+   def __str__(self):
+       return self.semesterName
+
 
 class Person(models.Model):
     personId=models.AutoField(primary_key=True)
@@ -37,9 +55,22 @@ class Person(models.Model):
     personEmail=models.EmailField(max_length=50)
     password=models.CharField(max_length=50)
     role_prn=models.ForeignKey(Role,null=False, blank=False , on_delete=models.CASCADE) 
-    company_prn=models.ForeignKey(Company,null=False, blank=False, on_delete=models.CASCADE) #no tiene grupo=0
+    company_prn=models.ForeignKey(Company,null=True, blank=True, on_delete=models.CASCADE) #no tiene grupo=0
+    semester_prn=models.ForeignKey(Semester, null=False, blank=False, on_delete=models.CASCADE)
     def __str__(self):
        return self.name
     class Meta:
        verbose_name='person'
        verbose_name_plural='persons'
+
+class Announcement(models.Model):
+   announcementId=models.AutoField(primary_key=True)
+   person_ann=models.ForeignKey(Person, null=False, blank=False, on_delete=models.CASCADE)
+   dateAnn=models.DateTimeField(auto_now_add=True)
+   description=models.CharField(max_length=500)
+   file=models.FileField(upload_to = "Uploaded Files/")
+
+
+class PseeAnn(models.Model):
+   prn_pseeann=models.ForeignKey(Person, null=False, blank=False, on_delete=CASCADE)
+   ann_pseeann=models.ForeignKey(Announcement, null=False, blank=False, on_delete=CASCADE)

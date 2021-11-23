@@ -12,8 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from login.models import Person, Company, Role
-from login.serializers import PersonSerializer, CompanySerializer, RoleSerializer
+from login.models import Person, Company, Role, Semester
+from login.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer
 
 '''def login(request):
     return render(request, 'login.html')
@@ -118,6 +118,35 @@ def RoleApi(request, id=0):
         role.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
 
+
+@csrf_exempt
+def SemesterApi(request, id=0):
+    if request.method=='GET':
+        semester = Semester.objects.all()
+        semester_serializer = SemesterSerializer(semester, many=True)
+        return  JsonResponse(semester_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        semester_data = JSONParser().parse(request)
+        semester_serializer = SemesterSerializer(data=semester_data)
+        if semester_serializer.is_valid():
+            semester_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        semester_data = JSONParser().parse(request)
+        semester = Semester.objects.get(semesterId=semester_data['semesterId'] )
+        semester_serializer = SemesterSerializer(semester, data=semester_data)
+        if semester_serializer.is_valid():
+            semester_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        semester = Semester.objects.get(semesterId=id)
+        semester.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
 
 class ProfileView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]

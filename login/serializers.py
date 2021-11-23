@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from login.models import Person, Company, Role
+from login.models import Person, Company, Role, Semester
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +11,8 @@ class PersonSerializer(serializers.ModelSerializer):
                     'personEmail',
                     'password',
                     'role_prn',
-                    'company_prn')
+                    'company_prn',
+                    'semester_prn')
 
 class  CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,4 +31,25 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = (  'roleId',
                     'roleName')
 
+class SemesterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Semester
+        fields = (  'semesterId',
+                    'semesterName',
+                    'semesterPassword')
 
+class AnnouncementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Semester
+        fields = (  'announcementId',
+                    'person_ann',
+                    'date_ann',
+                    'description',
+                    'file')
+
+class PseeAnnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Semester
+        fields = (  'prn_pseeann',
+                    'ann_pseeann',
+                    )                    
