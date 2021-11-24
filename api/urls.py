@@ -16,6 +16,15 @@ urlpatterns = [
     url(r'^role/$', views.RoleApi),
     url(r'^role/([0-9]+)$', views.RoleApi),
 
+    url(r'^semester/$', views.SemesterApi),
+    url(r'^semester/([0-9]+)$', views.SemesterApi),
+
+    url(r'^announcement/$', views.AnnouncementApi),
+    url(r'^announcement/([0-9]+)$', views.AnnouncementApi),
+
+    url(r'^offer/$', views.OfferApi),
+    url(r'^offer/([0-9]+)$', views.OfferApi),  
+
     #path('login', views.login, name="login"),
     #path('registro', views.register, name="registro"),
 ]

@@ -14,6 +14,7 @@ def generarPassword(n):
    for i in range(n):
       s+=random.choice(caracteres)
    return s
+   
     
 class Company(models.Model):
     companyId=models.AutoField(primary_key=True)
@@ -46,6 +47,19 @@ class Semester(models.Model):
    def __str__(self):
        return self.semesterName
 
+class Announcement(models.Model):
+   announcementId=models.AutoField(primary_key=True)
+   dateAnn=models.DateTimeField(auto_now_add=True)
+   description=models.CharField(max_length=500)
+   file=models.FileField(upload_to = "Uploaded Files/")
+
+class Offer(models.Model):
+   offerId=models.AutoField(primary_key=True)
+   dateOffer=models.DateTimeField(auto_now_add=True)
+   descriptionOffer=models.CharField(max_length=500)
+   fileOffer=models.FileField(upload_to = "Uploaded Files/")
+   minOffer=models.IntegerField()
+   maxOffer=models.IntegerField()
 
 class Person(models.Model):
     personId=models.AutoField(primary_key=True)
@@ -57,28 +71,12 @@ class Person(models.Model):
     role_prn=models.ForeignKey(Role,null=False, blank=False , on_delete=models.CASCADE) 
     company_prn=models.ForeignKey(Company,null=True, blank=True, on_delete=models.CASCADE) #no tiene grupo=0
     semester_prn=models.ForeignKey(Semester, null=False, blank=False, on_delete=models.CASCADE)
+    announcements= models.ManyToManyField(Announcement, blank=True)
+    offers= models.ManyToManyField(Offer, blank=True)
     def __str__(self):
        return self.name
     class Meta:
        verbose_name='person'
        verbose_name_plural='persons'
 
-class Announcement(models.Model):
-   announcementId=models.AutoField(primary_key=True)
-   person_ann=models.ForeignKey(Person, null=False, blank=False, on_delete=models.CASCADE)
-   dateAnn=models.DateTimeField(auto_now_add=True)
-   description=models.CharField(max_length=500)
-   file=models.FileField(upload_to = "Uploaded Files/")
 
-
-class PseeAnn(models.Model):
-   prn_pseeann=models.ForeignKey(Person, null=False, blank=False, on_delete=CASCADE)
-   ann_pseeann=models.ForeignKey(Announcement, null=False, blank=False, on_delete=CASCADE)
-
-"""class Offer(models.Model):
-   offerId=models.AutoField(primary_key=True)
-   person_offer=models.ForeignKey(Person, null=False, blank=False, on_delete=models.CASCADE)
-   dateOffer=models.DateTimeField(auto_now_add=True)
-   descriptionOffer=models.CharField(max_length=500)
-   fileOffer=models.FileField(upload_to = "Uploaded Files/")
-   minOffer=models.IntegerField(validators=[])"""

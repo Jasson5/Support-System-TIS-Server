@@ -6,14 +6,15 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from api.models import Person, Company, Role, Semester
-from api.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer
+from api.models import Person, Company, Role, Semester, Announcement, Offer
+from api.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer, AnnouncementSerializer, OfferSerializer
 
 '''def login(request):
     return render(request, 'login.html')
@@ -148,6 +149,65 @@ def SemesterApi(request, id=0):
         semester.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
 
+@csrf_exempt
+def AnnouncementApi(request, id=0):
+    if request.method=='GET':
+        announcement = Announcement.objects.all()
+        announcement_serializer = AnnouncementSerializer(announcement, many=True)
+        return  JsonResponse(announcement_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        announcement_data = JSONParser().parse(request)
+        announcement_serializer = AnnouncementSerializer(data=announcement_data)
+        if announcement_serializer.is_valid():
+            announcement_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        announcement_data = JSONParser().parse(request)
+        announcement = Announcement.objects.get(announcementId=announcement_data['announcementId'] )
+        announcement_serializer = AnnouncementSerializer(announcement, data=announcement_data)
+        if announcement_serializer.is_valid():
+            announcement_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        announcement = Announcement.objects.get(announcementId=id)
+        announcement.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
+
+@csrf_exempt
+def OfferApi(request, id=0):
+    if request.method=='GET':
+        offer = Offer.objects.all()
+        offer_serializer = OfferSerializer(offer, many=True)
+        return  JsonResponse(offer_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        offer_data = JSONParser().parse(request)
+        offer_serializer = OfferSerializer(data=offer_data)
+        if offer_serializer.is_valid():
+            offer_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        offer_data = JSONParser().parse(request)
+        offer = Offer.objects.get(offerId=offer_data['offerId'] )
+        offer_serializer = OfferSerializer(offer, data=offer_data)
+        if offer_serializer.is_valid():
+            offer_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        offer = Offer.objects.get(offerId=id)
+        offer.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
+   
+
 class ProfileView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -175,3 +235,8 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': user.pk,
             'email': user.email
         })
+
+    """from rest_framework_simplejwt.views import TokenObtainPairView
+
+    class Login(TokenObtainPairVIew):
+        serializer_class = CustomTokenObtainPairSerializer"""

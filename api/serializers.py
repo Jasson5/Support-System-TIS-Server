@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Person, Company, Role, Semester
+from api.models import Announcement, Offer, Person, Company, Role, Semester
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,16 +40,18 @@ class SemesterSerializer(serializers.ModelSerializer):
 
 class AnnouncementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Semester
+        model = Announcement
         fields = (  'announcementId',
-                    'person_ann',
                     'date_ann',
                     'description',
                     'file')
 
-class PseeAnnSerializer(serializers.ModelSerializer):
+class OfferSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Semester
-        fields = (  'prn_pseeann',
-                    'ann_pseeann',
-                    )                    
+        model = Offer
+        fields = (  'OfferId',
+                    'dateoffer',
+                    'descriptionoffer',
+                    'fileoffer',
+                    'minoffer',
+                    'maxoffer')       
