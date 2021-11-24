@@ -51,13 +51,13 @@ class Announcement(models.Model):
    announcementId=models.AutoField(primary_key=True)
    dateAnn=models.DateTimeField(auto_now_add=True)
    description=models.CharField(max_length=500)
-   file=models.FileField(upload_to = "Uploaded Files/")
+   file=models.CharField(max_length=2000)
 
 class Offer(models.Model):
    offerId=models.AutoField(primary_key=True)
    dateOffer=models.DateTimeField(auto_now_add=True)
    descriptionOffer=models.CharField(max_length=500)
-   fileOffer=models.FileField(upload_to = "Uploaded Files/")
+   fileOffer=models.CharField(max_length=2000)
    minOffer=models.IntegerField()
    maxOffer=models.IntegerField()
 
