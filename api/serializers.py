@@ -49,7 +49,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
-        fields = (  'OfferId',
+        fields = (  'offerId',
                     'dateOffer',
                     'descriptionOffer',
                     'fileOffer',
