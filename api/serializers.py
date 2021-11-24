@@ -42,7 +42,7 @@ class AnnouncementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
         fields = (  'announcementId',
-                    'date_ann',
+                    'dateAnn',
                     'description',
                     'file')
 
@@ -50,8 +50,8 @@ class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
         fields = (  'OfferId',
-                    'dateoffer',
-                    'descriptionoffer',
-                    'fileoffer',
-                    'minoffer',
-                    'maxoffer')       
+                    'dateOffer',
+                    'descriptionOffer',
+                    'fileOffer',
+                    'minOffer',
+                    'maxOffer')       
