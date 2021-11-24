@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls import url
 
-from login import views
+from api import views
 
 urlpatterns = [
     path('profile/', views.ProfileView.as_view()),

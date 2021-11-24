@@ -74,3 +74,11 @@ class Announcement(models.Model):
 class PseeAnn(models.Model):
    prn_pseeann=models.ForeignKey(Person, null=False, blank=False, on_delete=CASCADE)
    ann_pseeann=models.ForeignKey(Announcement, null=False, blank=False, on_delete=CASCADE)
+
+"""class Offer(models.Model):
+   offerId=models.AutoField(primary_key=True)
+   person_offer=models.ForeignKey(Person, null=False, blank=False, on_delete=models.CASCADE)
+   dateOffer=models.DateTimeField(auto_now_add=True)
+   descriptionOffer=models.CharField(max_length=500)
+   fileOffer=models.FileField(upload_to = "Uploaded Files/")
+   minOffer=models.IntegerField(validators=[])"""

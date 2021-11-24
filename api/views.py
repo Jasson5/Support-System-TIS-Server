@@ -12,8 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from login.models import Person, Company, Role, Semester
-from login.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer
+from api.models import Person, Company, Role, Semester
+from api.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer
 
 '''def login(request):
     return render(request, 'login.html')
