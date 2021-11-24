@@ -25,6 +25,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('home/', include('ProyectoTISApp.urls')),
     url(r'^', include('api.urls')),
-    #path('api/1.0/', include('api.urls')), 
+    path('api/1.0/', include('api.urls')), 
 
 ]
