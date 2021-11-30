@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Announcement, Offer, Person, Company, Role, Semester
+from api.models import Announcement, Attendance, Calendar, Homework, Offer, Person, Company, Role, Semester
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,13 +17,14 @@ class PersonSerializer(serializers.ModelSerializer):
 class  CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = (  'companyId',
-                    'shortName',
+        fields = (  'shortName',
                     'longName',
                     'society',
                     'address',
                     'telephone',
-                    'companyEmail')
+                    'companyEmail',
+                    'statusCompany',
+                    'homework')
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -54,4 +55,40 @@ class OfferSerializer(serializers.ModelSerializer):
                     'descriptionOffer',
                     'fileOffer',
                     'minOffer',
-                    'maxOffer')       
+                    'maxOffer')    
+
+class HomeworkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Homework
+        fields = (  'homeworkId',
+                    'tittleHw',
+                    'descriptionHw',
+                    'dateDeliveryHw',
+                    'datePublicationHw',
+                    'statusHw',
+                    'fileHw',
+                    'gradeHw')  
+
+class CalendarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Calendar
+        fields = (  'calendarId',
+                    'descriptionCalendar',
+                    'observationCalendar',
+                    'dateCalendar',
+                    'company_calendar'
+                    )    
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attendance
+        fields = (  'attendanceId',
+                    'dateAttendance',
+                    'noteAttendance',
+                    'statusAttendance',
+                    'gradeAttendance',
+                    'gradePOV',
+                    'person_attendance'
+                    ) 
+
+   

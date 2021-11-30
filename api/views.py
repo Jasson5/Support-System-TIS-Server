@@ -13,8 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 
-from api.models import Person, Company, Role, Semester, Announcement, Offer
-from api.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer, AnnouncementSerializer, OfferSerializer
+from api.models import Person, Company, Role, Semester, Announcement, Offer, Homework, Attendance, Calendar
+from api.serializers import PersonSerializer, CompanySerializer, RoleSerializer, SemesterSerializer, AnnouncementSerializer, OfferSerializer, HomeworkSerializer, AttendanceSerializer, CalendarSerializer
 
 '''def login(request):
     return render(request, 'login.html')
@@ -205,6 +205,93 @@ def OfferApi(request, id=0):
     elif request.method=='DELETE':
         offer = Offer.objects.get(offerId=id)
         offer.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
+
+@csrf_exempt
+def HomeworkApi(request, id=0):
+    if request.method=='GET':
+        homework = Homework.objects.all()
+        homework_serializer = HomeworkSerializer(homework, many=True)
+        return  JsonResponse(homework_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        homework_data = JSONParser().parse(request)
+        homework_serializer = HomeworkSerializer(data=homework_data)
+        if homework_serializer.is_valid():
+            homework_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        homework_data = JSONParser().parse(request)
+        homework = Homework.objects.get(homeworkId=homework_data['homeworkId'] )
+        homework_serializer = HomeworkSerializer(homework, data=homework_data)
+        if homework_serializer.is_valid():
+            homework_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        homework = Homework.objects.get(homeworkId=id)
+        homework.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
+
+@csrf_exempt
+def CalendarApi(request, id=0):
+    if request.method=='GET':
+        calendar = Calendar.objects.all()
+        calendar_serializer = CalendarSerializer(calendar, many=True)
+        return  JsonResponse(calendar_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        calendar_data = JSONParser().parse(request)
+        calendar_serializer = CalendarSerializer(data=calendar_data)
+        if calendar_serializer.is_valid():
+            calendar_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        calendar_data = JSONParser().parse(request)
+        calendar = Calendar.objects.get(calendarId=calendar_data['calendarId'] )
+        calendar_serializer = CalendarSerializer(calendar, data=calendar_data)
+        if calendar_serializer.is_valid():
+            calendar_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        calendar = Calendar.objects.get(calendarId=id)
+        calendar.delete()
+        return JsonResponse("Deleted Succesfully!", safe=False)
+
+@csrf_exempt
+def AttendanceApi(request, id=0):
+    if request.method=='GET':
+        attendance = Attendance.objects.all()
+        attendance_serializer = AttendanceSerializer(attendance, many=True)
+        return  JsonResponse(attendance_serializer.data, safe=False)
+        
+    elif request.method=='POST':
+        attendance_data = JSONParser().parse(request)
+        attendance_serializer = AttendanceSerializer(data=attendance_data)
+        if attendance_serializer.is_valid():
+            attendance_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add.", safe=False)
+
+    elif request.method=='PUT':
+        attendance_data = JSONParser().parse(request)
+        attendance = Attendance.objects.get(attendanceId=attendance_data['attendanceId'] )
+        attendance_serializer = AttendanceSerializer(attendance, data=attendance_data)
+        if attendance_serializer.is_valid():
+            attendance_serializer.save()
+            return JsonResponse("Updated Successfully!", safe=False)
+        return JsonResponse("Failed to Update.", safe=False)
+    
+    elif request.method=='DELETE':
+        attendance = Attendance.objects.get(attendanceId=id)
+        attendance.delete()
         return JsonResponse("Deleted Succesfully!", safe=False)
    
 

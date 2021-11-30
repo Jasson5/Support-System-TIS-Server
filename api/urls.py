@@ -25,6 +25,15 @@ urlpatterns = [
     url(r'^offer/$', views.OfferApi),
     url(r'^offer/([0-9]+)$', views.OfferApi),  
 
+    url(r'^homework/$', views.HomeworkApi),
+    url(r'^homework/([0-9]+)$', views.HomeworkApi),
+
+    url(r'^attendance/$', views.AttendanceApi),
+    url(r'^attendance/([0-9]+)$', views.AttendanceApi),  
+
+    url(r'^calendar/$', views.CalendarApi),
+    url(r'^calendar/([0-9]+)$', views.CalendarApi),    
+
     #path('login', views.login, name="login"),
     #path('registro', views.register, name="registro"),
 ]
