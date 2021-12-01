@@ -78,7 +78,8 @@ class Homework(models.Model):
        verbose_name_plural='homeworks'
    
 class Company(models.Model):
-    shortName=models.CharField(primary_key=True, max_length=50)
+    companyId=models.AutoField(primary_key=True)
+    shortName=models.CharField(max_length=50, unique=True)
     longName=models.CharField(max_length=50)
     society=models.CharField(max_length=5)
     address=models.CharField(max_length=100)

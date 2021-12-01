@@ -17,7 +17,8 @@ class PersonSerializer(serializers.ModelSerializer):
 class  CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = (  'shortName',
+        fields = (  'companyId'
+                    'shortName',
                     'longName',
                     'society',
                     'address',
